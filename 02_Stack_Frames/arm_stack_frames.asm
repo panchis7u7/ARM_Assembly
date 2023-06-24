@@ -3,10 +3,10 @@
 // X16 - Mach System Call function number.
 
 // Generate object code: 
-// as -arch arm64 -o stack_frames.o stack_frames.s
+// as -arch arm64 -o arm_stack_frames.o arm_stack_frames.asm
 
 // Generate an executable file within an object file: 
-// ld -o stack_frames stack_frames.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64
+// ld -o arm_stack_frames.out arm_stack_frames.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64
 
 .global _start
 .align 4
