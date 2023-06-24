@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "ARM x64",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "compilerPath": "/usr/bin/as", // Path to your GCC or Clang compiler
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}
