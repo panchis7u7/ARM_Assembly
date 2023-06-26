@@ -1,4 +1,4 @@
-// Assembler program for viewing the stack frames usage.
+// ARM assembler program for viewing the stack frames usage.
 // X0-X2 - parameters to Unix system calls.
 // X16 - Mach System Call function number.
 
