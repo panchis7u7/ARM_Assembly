@@ -1,0 +1,17 @@
+# Specify the path to the executable or binary you want to debug
+# Replace "/path/to/your/executable" with the actual path
+target create "arm_stack_frames.out"
+
+# Set breakpoints
+# Replace "function_name" with the actual function name and "source_file.cpp:line_number" with the desired source file and line number
+# breakpoint set --name function_name --file source_file.cpp --line line_number
+b start 
+b func_1
+b func_2
+
+# Add additional breakpoints if needed
+# breakpoint set --name another_function --file another_file.cpp --line another_line_number
+
+# Run the program with arguments if needed
+# Replace "arg1 arg2" with your program arguments
+# run arg1 arg2
