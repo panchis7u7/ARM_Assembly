@@ -99,3 +99,47 @@ With the start and end addresses known, you can then disassemble the function us
 ```lldb
 (lldb) disassemble --start-address <start_address> --end-address <end_address>
 ```
+
+Steps for this lab:
+
+```lldb
+# Review the stack pointer, frame pointer and link registers.
+
+reg r sp fp lr
+
+# We can see that lr points to dyld start.
+# Step in to the another frame.
+
+n
+reg r sp fp lr
+
+# We can see that lr changed to our program start.
+# Step in to the another frame.
+
+n
+reg r sp fp lr
+
+# SP changed its value, lets se what values changed...
+
+mem read -fx -c4 -s8 <new_sp_address>
+# <new_sp_address> => fp 
+# <new_sp_address>+8 =>  lr
+
+n
+
+# The frame pointer should be changed to the <new_sp_address>
+
+reg r sp fp
+# sp == fp
+
+# We allocated to new spaces for local variables or parameter preservation.
+# We can see a decrement of 16 (because the allocation is downwards on the stack space)
+
+reg r sp fp
+n
+
+# We saved the parameter 
+
+```
+
+##  GDB setup

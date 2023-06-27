@@ -30,10 +30,10 @@ func_1:
     // --------------------------------------------
     stp fp, lr, [sp, #-16]!         // Save previous frame pointer and link register.
     mov fp, sp                      // Set the frame pointer to the current stack pointer.
-    sub sp, sp, #16                  // Allocate space on the stack for local variables.
+    sub sp, sp, #16                 // Allocate space on the stack for local variables.
 
     // Save parameter registers.
-    str x0, [sp, #-16]
+    str x0, [sp, #8]
 
     mov	X0, #1		                // 1 = StdOut.
 	adr	X1, func_1_string           // string to print.
