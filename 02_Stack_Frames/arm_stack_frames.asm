@@ -8,13 +8,32 @@
 // Generate an executable file within an object file: 
 // ld -o arm_stack_frames.out arm_stack_frames.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64
 
+// #######################################################################################
+// _start (int agrc, char* argv[]) -> Entrypoint.
+// #######################################################################################
+
 .global _start
 .align 8
 
 _start:
 
+    // Function prologue.
+    // --------------------------------------------
+    stp fp, lr, [sp, #-16]!         // Save previous frame pointer and link register.
+    mov fp, sp                      // Set the frame pointer to the current stack pointer.
+
     mov x0, #1
     bl func_1
+
+    // Function epilogue.
+    // --------------------------------------------
+
+    mov sp, fp              // Restore the stack pointer.
+    ldp fp, lr, [sp], #16   // Restore the frame pointer and link register.
+    ret                     // Return from the function.
+
+    // Gracefull exit.
+    // --------------------------------------------
 
     // Setup the parameters to exit the program
     // and then call the Kernel to do it.
@@ -22,6 +41,10 @@ _start:
     mov X0, #0      // Use 0 return code.
     mov X16, #1     // System call number 1 terminates.
     svc #0x80       // Call kernel to terminate the program.
+
+// #######################################################################################
+// func_1 (int num1)
+// #######################################################################################
 
 .align 8
 func_1:
@@ -57,6 +80,10 @@ func_1:
     ldp fp, lr, [sp], #16   // Restore the frame pointer and link register.
     ret                     // Return from the function.
 
+// #######################################################################################
+// func_2 (int num1, int num2)
+// #######################################################################################
+
 .align 8
 func_2:
 
@@ -71,12 +98,14 @@ func_2:
     // Replace <parameter_offset> with the appropriate offset values to access the function parameters. The offset value depends on the order and size of the parameters passed to the function.
 
     // Save parameter registers.
+    // Why not start at 0? Because there was an empty (espacio sobrante) from the previous memory allocation,
+    // since the sp need to be 16 bit aligned, this addresses for 2 availabe memory locations.
     str x0, [sp, #0]
     str x1, [sp, #8]
 
     // Access function parameters
-    ldr x0, [fp, #8]        // Load the first parameter.
-    ldr x1, [fp, #16]       // Load the second parameter.
+    ldr x0, [fp, #0]        // Load the first parameter.
+    ldr x1, [fp, #8]       // Load the second parameter.
 
     mov	X0, #1		                // 1 = StdOut.
 	adr	X1, func_2_string           // string to print.
