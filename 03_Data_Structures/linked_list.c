@@ -32,6 +32,8 @@ void list_print(Node** head);
 // #######################################################################################
 
 int main(int argc, char* argv[]) {
+    (void)argc;
+    (void)argv;
 
     Node* head = {0}; 
     list_insert(&head, "training", INSERT_BEGINNING);
@@ -118,5 +120,14 @@ void list_print(Node** head) {
 }
 
 void list_free(Node** head) {
+    Node* current = *head;
+    Node* next;
 
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+
+    *head = NULL; // Set the head pointer to NULL after freeing all nodesee(temp);
 }

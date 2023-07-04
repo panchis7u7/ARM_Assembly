@@ -1,6 +1,6 @@
 ARCH := $(shell uname -m)
 CC = gcc
-CFLAGS = -Wall -Wextra -pedantic -std=c11 -g
+CFLAGS = -arch arm64 -Wall -Wextra -pedantic -std=c11 -g
 
 ifeq ($(ARCH), arm64)
 	AS := as -g -arch arm64
@@ -29,10 +29,10 @@ x64_stack_frames.o: x64_stack_frames.asm
 	$(AS) -o x64_stack_frames.o x64_stack_frames.asm
 
 c_stack_frames: c_stack_frames.o
-	$(CC) $(CFLAGS) -o $@.out $<
+	$(CC) $(CFLAGS) $^ -o $@.out
 
 c_stack_frames.o: c_stack_frames.c
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean: $(CLEAN_TARGET)
 	rm -f c_stack_frames.o c_stack_frames.out 
