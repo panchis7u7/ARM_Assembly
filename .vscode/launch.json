@@ -5,7 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "arm-debug-02-sf",
+            "name": "arm-debug-01-elf-format",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/01_Formats/formats.out",
+            "args": [
+                "-s debug_script.lldb"
+            ],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "arm-debug-02-stack-frames",
             "type": "lldb",
             "request": "launch",
             "program": "${workspaceFolder}/02_Stack_Frames/arm_stack_frames.out",
@@ -13,6 +23,16 @@
                 "-s debug_script.lldb"
             ],
             "cwd": "${workspaceFolder}"
-        }
+        },
+        {
+            "name": "arm-debug-03-data-structures-ll",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/03_Data_Structures/linked_list.out",
+            "args": [
+                "-s debug_script.lldb"
+            ],
+            "cwd": "${workspaceFolder}"
+        },
     ]
 }

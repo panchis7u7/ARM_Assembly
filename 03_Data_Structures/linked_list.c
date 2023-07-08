@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
     list_insert(&head, "Futuro", INSERT_LAST);
     list_insert(&head, "es", INSERT_LAST);
     list_insert(&head, "Hoy,", INSERT_LAST);
-    list_insert(&head, " Viejo!", INSERT_LAST);
+    list_insert(&head, "Viejo!", INSERT_LAST);
     
     list_print(&head);
     list_free(&head);
@@ -52,9 +52,11 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-void list_insert(Node** head, char* data, ListOperations operation) {
+// #######################################################################################
+// Linked list node insertion.
+// #######################################################################################
 
-    Node* raw_head = *head;
+void list_insert(Node** head, char* data, ListOperations operation) {
 
     // Create a new block and then zero it out.
     Node* new_node = (Node*)malloc(sizeof(Node));
@@ -62,9 +64,10 @@ void list_insert(Node** head, char* data, ListOperations operation) {
     new_node->next = NULL;
     new_node->previous = NULL;
 
-    if (*head == NULL)
+    if (*head == NULL) {
         *head = new_node;
         return;
+    }
 
     switch (operation){
         case INSERT_BEGINNING: {
@@ -90,34 +93,23 @@ void list_insert(Node** head, char* data, ListOperations operation) {
     return;
 }
 
+// #######################################################################################
+// Linked list node traversal and print.
+// #######################################################################################
+
 void list_print(Node** head) {
-    if (head == NULL) {
-        printf("Doubly Linked List: [empty]\n");
-        return;
-    }
-
-    printf("Doubly Linked List:\n");
-    printf(" ┌────────┬─────────┬───────┐\n");
-    printf(" │   %s   │", (*head)->data);
-
-    Node* current = (*head)->next;
+    printf("Doubly Linked List: ");
+    Node* current = *head;
     while (current != NULL) {
-        printf(" → %s   │", current->data);
+        printf("%s ", current->data);
         current = current->next;
     }
-
-    printf("\n ├───────┼─────────┼───────┤\n");
-    printf(" │       ↑       │\n");
-
-    current = (*head)->next;
-    while (current != NULL) {
-        printf(" │       ↓       │\n");
-        printf(" │   %s   │\n", current->data);
-        current = current->next;
-    }
-
-    printf(" └───────┴─────────┴───────┘\n");
+    printf("\n");
 }
+
+// #######################################################################################
+// Linked list node traversal deallocation.
+// #######################################################################################
 
 void list_free(Node** head) {
     Node* current = *head;
